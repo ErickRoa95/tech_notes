@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+
+### Example of execution: ./guess_input.sh
 COMPUTER=25
 GUESS=0
 

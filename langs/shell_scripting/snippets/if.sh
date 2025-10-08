@@ -15,6 +15,19 @@ fi
 USER_GUESS=$2
 COMPUTER=50
 
+### Compararison Operators for if.
+# -eq : equal
+# -ne : not equal
+# -gt : greater than
+# -lt : less than
+# -ge : greater than or equal to
+# -le : less than or equal to
+# -z : string is null, has zero length
+# -n : string is not null, has non-zero length
+# = : string is equal
+# != : string is not equal
+
+
 if [ $USER_GUESS -lt $COMPUTER ]; then
   echo "Too low!"
 elif [ $USER_GUESS -gt $COMPUTER ]; then
@@ -24,3 +37,4 @@ else
 fi
 
 exit 0
+
