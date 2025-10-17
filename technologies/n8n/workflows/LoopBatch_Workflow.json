@@ -1,0 +1,114 @@
+{
+  "name": "LoopBatch Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -432,
+        -80
+      ],
+      "id": "3d8af513-3627-465b-acf9-e1c8dfac38f0",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "let urls = [\n  {\n    json :{\n      url: \"https://medium.com/feed/n8n-io\",\n    }\n  },{\n    json :{\n      url: \"https://dev.to/feed/n8n\",\n    }\n  },\n];\n\nreturn urls;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        -80
+      ],
+      "id": "bd703d2c-91fe-4835-b52f-cda36153c3ef",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        112,
+        -80
+      ],
+      "id": "a25f9636-70a3-401c-ae3f-aaba01b4e67f",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.rssFeedRead",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        -64
+      ],
+      "id": "06540314-c746-41ac-8443-096ec1df236b",
+      "name": "RSS Read"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "RSS Read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "RSS Read": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6311fa58-03fc-4140-b9be-5e8cd722493d",
+  "meta": {
+    "instanceId": "ba6a365dd81340153a7cbf8eb27dfba8501b942cc93a3384909e1d9344252c0b"
+  },
+  "id": "PSfrAXAP3xSkN4jM",
+  "tags": []
+}

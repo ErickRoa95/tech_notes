@@ -1,0 +1,97 @@
+{
+  "name": "Pokemon ETL workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        -64
+      ],
+      "id": "e307a60e-20ce-4841-b5f2-430ce4e23720",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://pokeapi.co/api/v2/pokemon",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        16
+      ],
+      "id": "7e12efda-68e9-4de9-a296-d0c57a244f20",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        16,
+        -64
+      ],
+      "id": "0bf2b060-8299-4c5c-950e-7ce10ceaad54",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "jsCode": "return $input.first().json.results.map(item =>{\n  return {\n    json: item\n  }\n})"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        16,
+        112
+      ],
+      "id": "be5441f8-cff4-41f5-b516-b89df3b2a37d",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3aee1922-2f5b-447f-8574-4691f9741ab0",
+  "meta": {
+    "instanceId": "ba6a365dd81340153a7cbf8eb27dfba8501b942cc93a3384909e1d9344252c0b"
+  },
+  "id": "EDZ9Xu06CViwuGQ2",
+  "tags": []
+}

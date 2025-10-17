@@ -1,0 +1,143 @@
+{
+  "name": "Binary File Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -464,
+        -96
+      ],
+      "id": "61d289c8-27b8-4dbf-9ba4-a9fd7f1678d2",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://media.kaspersky.com/pdf/Kaspersky_Lab_Whitepaper_Anti_blocker.pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -224,
+        -80
+      ],
+      "id": "6e4d216d-f99b-4348-896a-42874ca94098",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        -80
+      ],
+      "id": "b47b008e-8a72-4ea2-895f-6c5ae0d38012",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "url": "https://poetrydb.org/random/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -320,
+        160
+      ],
+      "id": "40f33385-37d3-4ec2-b830-80b23f5eb7f0",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        -112,
+        160
+      ],
+      "id": "4425f017-e4d0-4ab2-8d33-827154e079c8",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "fileSelector": "~/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        96,
+        160
+      ],
+      "id": "077527fb-6222-45e1-9f2f-e73f4681bbe3",
+      "name": "Read/Write Files from Disk"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "605f24c3-069b-4289-b351-2f696e219208",
+  "meta": {
+    "instanceId": "ba6a365dd81340153a7cbf8eb27dfba8501b942cc93a3384909e1d9344252c0b"
+  },
+  "id": "t8A7xjv1iL55ctZP",
+  "tags": []
+}

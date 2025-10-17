@@ -1,0 +1,107 @@
+{
+  "name": "Converter Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -96
+      ],
+      "id": "9bd9443a-6b95-40eb-a5a5-81bc3f671596",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://blog.n8n.io/",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -112
+      ],
+      "id": "41b31a80-b334-428b-af88-fc888b9dce0d",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": ".item-title a",
+              "returnValue": "html"
+            },
+            {
+              "key": "url",
+              "cssSelector": ".item-title a",
+              "returnValue": "attribute",
+              "attribute": "href"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        -112
+      ],
+      "id": "cf6ec266-892a-4f5e-a421-38fff0c61df9",
+      "name": "HTML"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b49f1f41-c316-4a31-88e7-7e70c689370f",
+  "meta": {
+    "instanceId": "ba6a365dd81340153a7cbf8eb27dfba8501b942cc93a3384909e1d9344252c0b"
+  },
+  "id": "AwY04oKYRxBfi67c",
+  "tags": [
+    {
+      "createdAt": "2025-10-17T17:46:39.235Z",
+      "updatedAt": "2025-10-17T17:46:39.235Z",
+      "id": "IuLucdhaCXc1jdCS",
+      "name": "xml"
+    },
+    {
+      "createdAt": "2025-10-17T17:46:42.504Z",
+      "updatedAt": "2025-10-17T17:46:42.504Z",
+      "id": "p1B1NfVAruNSbKj7",
+      "name": "html"
+    }
+  ]
+}
